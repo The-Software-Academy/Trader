@@ -1,0 +1,21 @@
+steps:
+- name: 'gcr.io/academy-images-0/qt-builder'
+  dir: /workspace/src/
+  id: Configuring a debug build with qmake
+  args: ['trader.pro', '-spec', 'linux-g++', 'CONFIG+=debug', 'CONFIG+=qml_debug']
+- name: 'gcr.io/academy-images-0/qt-builder'
+  dir: /workspace/src/
+  id: Compiling with make
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - |
+     make
+- name: 'gcr.io/academy-images-0/qt-builder'
+  dir: /workspace/src/test
+  id: Running tests
+  entrypoint: /bin/bash
+  args:
+  - -c
+  - |
+     ./test
